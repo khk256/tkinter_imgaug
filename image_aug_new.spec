@@ -4,7 +4,7 @@
 block_cipher = None
 
 
-a = Analysis(['image_aug_new.py'],
+a = Analysis(['image_aug_new.pycd', '/Users/khk/workspace/TBELL/기업부설연구소/tkinter'],
              pathex=['/Users/khk/workspace/TBELL/기업부설연구소/tkinter'],
              binaries=[],
              datas=[],

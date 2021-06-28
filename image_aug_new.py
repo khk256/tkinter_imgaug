@@ -27,6 +27,11 @@ class Application(Frame):
         self.select_image["command"] = self.image_canvas
         self.select_image.pack(side = "bottom", fill = "both", expand = "yes", padx = "10", pady = "10")
 
+        # self.image_download = Button(self)
+        # self.image_download["text"] = "압축 다운로드"
+        # self.image_download["command"] = self.image_zip
+        # self.image_download.pack(side = "right", fill = "both", expand = "yes", padx = "10", pady = "10")
+
     def image_canvas(self):
         path = filedialog.askopenfilename()
 
@@ -38,10 +43,10 @@ class Application(Frame):
             image = array([image])
 
             seq = iaa.Sequential([
-                        iaa.Multiply((0.5, 1.5)),
                         iaa.Sometimes(
                             0.5,
-                            iaa.GaussianBlur(sigma=(0, 0.5))
+                            iaa.GaussianBlur(sigma=(0, 0.5)),
+                            iaa.Multiply((0.5, 1.5))
                         ),
                         iaa.Affine(
                         rotate=(0, 180)
@@ -63,11 +68,6 @@ class Application(Frame):
             canvas.draw()
             canvas.get_tk_widget().pack()
 
-            self.image_download = Button(self)
-            self.image_download["text"] = "압축 다운로드"
-            self.image_download["command"] = self.image_zip(im_list)
-            self.image_download.pack(side = "right", fill = "both", expand = "yes", padx = "10", pady = "10")
-
     def image_zip(self, im_list):
 
         images = []
@@ -76,7 +76,7 @@ class Application(Frame):
             file_object = BytesIO()
             im.save(file_object, "PNG")
             im.close()
-            images[i].append(file_object)
+            # images[i].append(file_object)
 
         zip_file_bytes_io = BytesIO()
 
